@@ -82,7 +82,7 @@ const job = schedule.scheduleJob(rule, async function () {
 
 		console.log('Uploading file...');
 
-		await fileChooser.accept(['janga.jpg']);
+		await fileChooser.accept([process.env.PHOTO_PATH]);
 
 		await sleep(3000);
 
@@ -113,7 +113,7 @@ const job = schedule.scheduleJob(rule, async function () {
 
 		await sleep(10000);
 
-		fs.writeFileSync('time.txt', `${parseInt(data) + 1}`);
+		fs.writeFileSync(process.env.FILE_PATH, `${parseInt(data) + 1}`);
 
 		console.log('All done!');
 
