@@ -1,5 +1,6 @@
 # Instagram-uploader
-As the name suggests, this is a simple bot written in ```NodeJs``` to automate the upload of a post on [Instagram](https://www.instagram.com/).
+As the name suggests, this is a simple bot written in ```NodeJs``` to automate the upload of a post on [Instagram](https://www.instagram.com/). <br>
+The bot has been made for the purpose of posting on meme pages like: "SpongeBobEveryDay", "JoeRoganEveryDay" and so on. 
 
 ## Installation
 Clone the repo: <br>
@@ -20,6 +21,15 @@ Create a file named ```.env``` into the repo folder and set it up like this:
  <img src="https://user-images.githubusercontent.com/58223071/194145957-8105a177-7daf-4576-8e74-97b62a026ebc.png" alt=".env-configuration-pic" />
 </div>
 
+- IG_USR -> your instagram username
+- IG_PWD -> your instagram password
+- PHOTO_PATH -> path to the file you wish to upload as a post
+- DAYS_FILE -> path to the file where the bot will keep count of the number of the days
+- TIME_FILE -> path to the file where the bot will save the last time it posted
+
+### Why ```TIME_FILE```?
+The initial idea was to schedule the bot to post everyday at a certain time with the [```cron```](https://www.npmjs.com/package/cron) package in **headless** mode. <br>
+Since Instagram somehow manages to block headless attempts to login I decided it was far easier to simple set up a basic activity in Windows and let the script run everytime the user logged in. 
 
 ## Usage
 Once you've installed the packages and set up the .env file all you need to do is run the following command:
