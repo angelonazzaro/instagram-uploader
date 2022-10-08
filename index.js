@@ -5,15 +5,14 @@ const fs = require('fs');
 (async () => {
 
 	const last_run_time = fs.readFileSync(process.env.TIME_FILE, { encoding: 'utf8' });
-
 	let current_date = new Date();
-	const current_date_str = `${current_date.getDay()}/${current_date.getMonth()}/${current_date.getFullYear()}`;
+	const current_date_str = `${current_date.getDate()}/${current_date.getMonth() + 1}/${current_date.getFullYear()}`;
 
 	if (last_run_time === current_date_str) return;
 	
 	console.log('Launching browser...');
 
-	const browser = await puppeteer.launch({ headless: true });
+	const browser = await puppeteer.launch({ headless: false });
 	let page = await browser.newPage();
 
 	await page.goto('https://www.instagram.com/');
@@ -43,7 +42,7 @@ const fs = require('fs');
 	await password_input.type(process.env.IG_PWD);
 
 	const login_btn = await page.$('#loginForm button[type="submit"]');
-	login_btn.click();
+	await login_btn.click();
 
 	await page
 		.waitForSelector(
@@ -138,7 +137,12 @@ const fs = require('fs');
 
 	fs.writeFileSync(process.env.DAYS_FILE, `${parseInt(data) + 1}`);
 	current_date = new Date();
-	fs.writeFileSync(process.env.TIME_FILE, `${current_date.getDay()}/${current_date.getMonth()}/${current_date.getFullYear()}`);
+	fs.writeFileSync(
+		process.env.TIME_FILE,
+		`${current_date.getDate()}/${
+			current_date.getMonth() + 1
+		}/${current_date.getFullYear()}`
+	);
 
 	console.log('All done!');
 
